@@ -1,0 +1,1 @@
+# newsletters-microservice-app
