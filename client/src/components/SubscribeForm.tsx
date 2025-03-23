@@ -7,7 +7,7 @@ const SubscribeForm = () => {
         e.preventDefault();
         const email = (e.target as HTMLFormElement).email.value;
         try {
-            await axois.post('http://localhost:5001/api/subscribe', { email });
+            await axois.post('http://localhost:3001/subscribe', { email });
             alert('Subscribed successfully');
         } catch (error) {
             alert('Failed to subscribe');

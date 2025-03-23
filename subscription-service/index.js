@@ -25,7 +25,7 @@ mongoose.connect(process.env.MONGODB_URI, {
   .catch((error) => console.log('Error connecting to MongoDB:', error));
 
 // API Routes
-app.use('/api', subscriptionRoutes);
+app.use('/api/subscription', subscriptionRoutes);
 
 // Start the server
 app.listen(PORT, () => {
