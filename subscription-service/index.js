@@ -1,5 +1,5 @@
 const express = require('express');
-const mongoose = require('mongoose');
+
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const subscriptionRoutes = require('./routes/subscriptionRoutes');
@@ -16,13 +16,6 @@ app.use(bodyParser.json());      // Parse incoming JSON requests
 
 
 
-// MongoDB Connection
-mongoose.connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })  
-  .then(() => console.log('Connected to MongoDB'))
-  .catch((error) => console.log('Error connecting to MongoDB:', error));
 
 // API Routes
 app.use('/api/subscription', subscriptionRoutes);

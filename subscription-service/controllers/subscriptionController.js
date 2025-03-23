@@ -16,7 +16,8 @@ const subscribeUser=async (req,res)=>{
     return res.status(400).json({ message: 'Invalid email address!' });
   }
 
-  try{
+  try {
+        
         const existingSubscriber=await Subscriber.findOne({email});
         if(existingSubscriber){
             return res.status(400).json({message:'Email already subscribed!'});
@@ -45,5 +46,14 @@ const subscribeUser=async (req,res)=>{
 
 }
 
+const getSubscribers = async (req, res) => { 
+    try {
+      const subscribers = await Subscriber.find();
+      res.status(200).json(subscribers);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: error.message });
+    }
+}
 
-module.exports={subscribeUser};
+module.exports={subscribeUser,getSubscribers};

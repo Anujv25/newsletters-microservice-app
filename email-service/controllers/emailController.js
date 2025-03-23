@@ -1,7 +1,6 @@
 
 const { sendEmail } = require('../services/emailService');
 
-
 const sendWelcomeEmail = async (req, res) => { 
     const { email } = req.body;
 
