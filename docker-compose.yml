@@ -1,0 +1,62 @@
+services:
+  api-gateway:
+    build:
+      context: ./api-gateway
+    ports:
+      - "3000:3000" # API Gateway listens on port 3000
+    depends_on:
+      - subscription-service
+      - email-service
+    networks:
+      - app-network
+    env_file:
+      - ./api-gateway/.env
+
+  subscription-service:
+    build:
+      context: ./subscription-service
+    ports:
+      - "3001:3001"
+    networks:
+      - app-network
+    environment:
+      - DB_HOST=mongodb
+      - DB_PORT=27017
+    env_file:
+      - ./subscription-service/.env
+    depends_on:
+      - mongodb
+
+  email-service:
+    build:
+      context: ./email-service
+    ports:
+      - "3002:3002"
+    networks:
+      - app-network
+    env_file:
+      - ./email-service/.env
+
+  client:
+    build:
+      context: ./client
+    ports:
+      - "80:80" # Frontend React app served via NGINX
+    networks:
+      - app-network
+
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb-data:/data/db
+    networks:
+      - app-network
+
+volumes:
+  mongodb-data:
+
+networks:
+  app-network:
+    driver: bridge
