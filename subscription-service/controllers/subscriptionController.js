@@ -49,6 +49,7 @@ const subscribeUser=async (req,res)=>{
 const getSubscribers = async (req, res) => { 
     try {
       const subscribers = await Subscriber.find();
+      console.log(subscribers);
       res.status(200).json(subscribers);
     } catch (error) {
       console.error(error);

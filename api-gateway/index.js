@@ -23,8 +23,12 @@ app.post('/subscribe', async (req, res) => {
     const response = await axios.post(`${subscriptionServiceUrl}/subscribe`, req.body);
     res.status(response.status).json(response.data);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Error subscribing user' });
+    if(error.response && error.response.status === 400){
+      res.status(400).json({ error: error.response.data.message });
+    }else{
+      console.error(error);
+      res.status(500).json({ error: error.message });
+    }
   }
 });
 
